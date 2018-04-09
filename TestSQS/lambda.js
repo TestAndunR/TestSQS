@@ -9,7 +9,7 @@ exports.handler = function (event, context, callback) {
 	sqs.receiveMessage({
 		QueueUrl: 'https://sqs.us-east-1.amazonaws.com/318300609668/SQS',
 		AttributeNames: ['All'],
-		MaxNumberOfMessages: '5',
+		MaxNumberOfMessages: '1',
 		VisibilityTimeout: '30',
 		WaitTimeSeconds: '0',
 		MessageAttributeNames: ['']

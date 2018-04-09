@@ -24,10 +24,10 @@ exports.handler = function (event, context, callback) {
 		}
 	}, function (data) {
 		// your logic (logging etc) to handle successful message delivery, should be here
-		console.log("sucess", data);
+		console.log("sucess");
 	}, function (error) {
 		// your logic (logging etc) to handle failures, should be here
-		console.log("Error", data);
+		console.log("Error");
 	});
 
 	callback(null, 'Successfully executed');

@@ -4,26 +4,19 @@ let SL = require('@slappforge/slappforge-sdk');
 // const rds = new SL.AWS.RDS(connectionManager);
 const sqs = new SL.AWS.SQS(AWS);
 exports.handler = function (event, context, callback) {
-
 	message = event.message
-	sqs.receiveMessage({
+	sqs.sendMessage({
+		MessageBody: message,
 		QueueUrl: 'https://sqs.us-east-1.amazonaws.com/318300609668/SQS',
-		AttributeNames: ['All'],
-		MaxNumberOfMessages: '1',
-		VisibilityTimeout: '30',
-		WaitTimeSeconds: '0',
-		MessageAttributeNames: ['']
-	}, function (receivedMessages) {
-		receivedMessages.forEach(message => {
-			// your logic to access each message through out the loop. Each message is available under variable message 
-			// within this block
-			console.log(message);
-		})
+		DelaySeconds: '0',
+		MessageAttributes: {}
+	}, function (data) {
+		// your logic (logging etc) to handle successful message delivery, should be here
+		console.log("Success");
 	}, function (error) {
-		// implement error handling logic here
-		console.log("Failed");
+		// your logic (logging etc) to handle failures, should be here
+		console.log("Error");
 	});
-
 
 
 	callback(null, 'Successfully executed');

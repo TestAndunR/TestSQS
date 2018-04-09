@@ -18,6 +18,23 @@ exports.handler = function (event, context, callback) {
 		console.log("Error");
 	});
 
+	sqs.receiveMessage({
+		QueueUrl: 'https://sqs.us-east-1.amazonaws.com/318300609668/SQS',
+		AttributeNames: ['All'],
+		MaxNumberOfMessages: '5',
+		VisibilityTimeout: '30',
+		WaitTimeSeconds: '0',
+		MessageAttributeNames: ['']
+	}, function (receivedMessages) {
+		receivedMessages.forEach(message => {
+			// your logic to access each message through out the loop. Each message is available under variable message 
+			// within this block
+			console.log(message);
+		})
+	}, function (error) {
+		// implement error handling logic here
+		console.log("Failed");
+	});
 
 	callback(null, 'Successfully executed');
 }

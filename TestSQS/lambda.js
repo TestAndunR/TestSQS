@@ -5,7 +5,7 @@ const rds = new SL.AWS.RDS(connectionManager);
 const sqs = new SL.AWS.SQS(AWS);
 exports.handler = function (event, context, callback) {
 
-
+	message = event.message
 	// You must always end/destroy the DB connection after it's used
 	rds.beginTransaction({
 		instanceIdentifier: 'RDSSQS'
@@ -13,7 +13,7 @@ exports.handler = function (event, context, callback) {
 		if (error) { throw err; }
 	});
 	sqs.sendMessage({
-		MessageBody: 'Test message',
+		MessageBody: message,
 		QueueUrl: 'https://sqs.us-east-1.amazonaws.com/318300609668/SQS',
 		DelaySeconds: '0',
 		MessageAttributes: {
@@ -24,10 +24,10 @@ exports.handler = function (event, context, callback) {
 		}
 	}, function (data) {
 		// your logic (logging etc) to handle successful message delivery, should be here
-		console.log("sucess",data);
+		console.log("sucess", data);
 	}, function (error) {
 		// your logic (logging etc) to handle failures, should be here
-		console.log("Error",data);
+		console.log("Error", data);
 	});
 
 	callback(null, 'Successfully executed');

@@ -10,7 +10,7 @@ exports.handler = function (event, context, callback) {
 		QueueUrl: 'https://sqs.us-east-1.amazonaws.com/318300609668/SQS',
 		DelaySeconds: '0',
 		MessageAttributes: {}
-	}, function (data) {
+	}, function (data) {	
 		// your logic (logging etc) to handle successful message delivery, should be here
 		console.log("Success");
 	}, function (error) {
@@ -35,9 +35,11 @@ exports.handler = function (event, context, callback) {
 	}, function (error) {
 		// implement error handling logic here
 		console.log("Failed");
+		callback("Error",null);
 	});
 
-	callback(null, 'Successfully executed');
+
+	// callback(null, 'Successfully executed');
 }
 
 
